@@ -1,3 +1,5 @@
+package com.hp.pwp.capstone
+
 import java.security.MessageDigest
 import java.nio
 
