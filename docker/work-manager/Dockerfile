@@ -30,9 +30,9 @@ RUN curl -L https://bintray.com/artifact/download/groovy/maven/apache-groovy-bin
 	ln -s /usr/local/groovy/bin/groovy groovy
 
 #clone repo
-RUN git clone https://github.com/dgrocki/HP-Docker-Capstone.git
+#RUN git clone https://github.com/dgrocki/HP-Docker-Capstone.git
 #Build the project
-RUN ./HP-Docker-Capstone/GroovyGradle/gradlew
+#RUN ./HP-Docker-Capstone/GroovyGradle/gradlew
 
-WORKDIR /HP-Docker-Capstone/GroovyGradle/src/main/groovy
-RUN make
+#WORKDIR /HP-Docker-Capstone/GroovyGradle/src/main/groovy
+#RUN make
