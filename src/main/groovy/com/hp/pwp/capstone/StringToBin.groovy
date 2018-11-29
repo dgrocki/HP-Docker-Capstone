@@ -1,3 +1,5 @@
+package com.hp.pwp.capstone
+
 class Byte {
 	def bits = new int[8];
 	boolean isSet = false;
