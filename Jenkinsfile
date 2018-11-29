@@ -17,10 +17,18 @@ node('docker') {
 
     }
 
+	 stage('Gradle Build') {
+		 sh './gradlew clean build'
+	 }
+
+	 stage('Gradle Tests') {
+		 sh './gradlew test'
+	 }
+
     stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-        app = docker.build("iceberg00/hp-docker-capstone")
+        dir('docker/work-manager') {app = docker.build("iceberg00/hp-docker-capstone")}
     }
 
     stage('Test image') {
