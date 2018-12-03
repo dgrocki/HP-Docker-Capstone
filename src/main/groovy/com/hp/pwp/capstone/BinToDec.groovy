@@ -1,6 +1,6 @@
 package com.hp.pwp.capstone
 
-class Example {
+class toBin {
 
 	 int binaryToInteger(int binString) {
 		int asciiValue=0;
