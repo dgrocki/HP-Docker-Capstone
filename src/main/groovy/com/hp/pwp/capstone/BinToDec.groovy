@@ -19,7 +19,7 @@ class toBin {
 	 boolean isBinary(String binary) {
 		//checks if there is enog=ugh bits
 		if(binary.length() % 8 != 0) {
-			println "You need to enter the binary number in strings of 8's"
+	//		println "You need to enter the binary number in strings of 8's"
 			return false;
 		}
 
@@ -30,7 +30,7 @@ class toBin {
 			int ones = bin % 10;
 			
 			if(ones != 0 && ones != 1) {
-				println "String contained values besides 1's and 0's"
+	//			println "String contained values besides 1's and 0's"
 				return false;
 			}
 
