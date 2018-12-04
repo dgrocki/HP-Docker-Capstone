@@ -39,42 +39,4 @@ class toBin {
 
 		return true;
 	}
-
-	// public static int main(String [] args) {
-	// 	boolean goodInput = false;
-	// 	boolean isBin = false;
-	// 	String input;
-
-	// 	while(!(isBin)) {
-		
-	// 		while(!(goodInput)) {
-
-	// 			input = System.console().readLine 'Enter a number: ';
-
-	// 			if(!(input.isInteger())) {
-	// 				println "A number please";
-	// 			} else {
-	// 			//	println "good lad"
-	// 				goodInput = true;
-	// 			}
-
-	// 		}
-
-	// 		if(isBinary(input)) {
-	// 			isBin = true;
-	// 		} else {
-	// 			goodInput = false;
-	// 		}
-
-	// 	}
-
-
-	// 	print "Decimal Value: "
-	// 	println binaryToInteger(input as Integer);
-
-	// 	print "ASCII Value: "
-	// 	println binaryToInteger(input as Integer) as char
-
-	// 	return 0;
-	// }
 }
