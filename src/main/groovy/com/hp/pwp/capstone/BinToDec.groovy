@@ -39,4 +39,9 @@ class toBin {
 
 		return true;
 	}
+
+
+	public static void main(String [] args) {
+		println "Hello world"
+	}
 }
