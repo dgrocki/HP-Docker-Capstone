@@ -50,8 +50,13 @@ task uberjar(type: Jar, dependsOn: [':compileJava', ':compileGroovy', 'compileSo
 }
 
 task buildImage(type:Exec) {
-    commandLine 'docker', 'build', '.'
+    commandLine 'docker', 'build', '-t', 'latest', '.'
+}
+
+task runImage(type:Exec) {
+    commandLine 'docker', 'run', '-i', 'latest'
 }
 
 
 build.finalizedBy(buildImage)
+build.finalizedBy(runImage)
