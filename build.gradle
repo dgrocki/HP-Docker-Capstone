@@ -48,3 +48,10 @@ task uberjar(type: Jar, dependsOn: [':compileJava', ':compileGroovy', 'compileSo
         attributes 'Main-Class': 'com.hp.pwp.capstone.toBin'
     }
 }
+
+task buildImage(type:Exec) {
+    commandLine 'docker', 'build', '.'
+}
+
+
+build.finalizedBy(buildImage)
