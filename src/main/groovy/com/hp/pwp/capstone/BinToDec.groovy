@@ -49,10 +49,14 @@ class toBin {
 
             boolean goodInput = true
             int binString
-            
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in)) 
-            print "Enter a binary string: " 
-            String input = br.readLine() 
+
+            print "Enter a binary string: "
+            String input = System.in.newReader().readLine()
+
+
+            if(input == 'exit') {
+                break
+            }
 
             goodInput = converter.isBinary(input)
             binString = input as Integer
