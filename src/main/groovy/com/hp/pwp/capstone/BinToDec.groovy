@@ -1,4 +1,5 @@
 package com.hp.pwp.capstone
+import com.surftools.BeanstalkClient
 
 class toBin {
 

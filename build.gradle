@@ -32,6 +32,9 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
     mavenCentral()
+    maven{
+    	url 'https://mvnrepository.com/artifact/com.surftools/BeanstlkdClient'
+    }
 }
 
 jar {
