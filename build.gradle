@@ -59,4 +59,4 @@ task runImage(type:Exec) {
 
 
 build.finalizedBy(buildImage)
-build.finalizedBy(runImage)
+//build.finalizedBy(runImage)
