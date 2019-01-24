@@ -23,6 +23,11 @@ class toBin {
 			return false;
 		}
 
+        if(!(binary.isNumber())) {
+            println "String contained letters, numbers only!"
+            return false
+        }
+
 		int bin = binary as Integer;
 
 		//checks to see if all items in string are 1's and 0's
@@ -59,8 +64,9 @@ class toBin {
             }
 
             goodInput = converter.isBinary(input)
-            binString = input as Integer
+
             if(goodInput) {
+                binString = input as Integer
                 println "$input as an integer: " + converter.binaryToInteger(binString)
             }
             
