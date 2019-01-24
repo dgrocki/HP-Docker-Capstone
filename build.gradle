@@ -60,10 +60,10 @@ task buildImage(type:Exec) {
     commandLine 'docker', 'build', '-t', 'latest', '.'
 }
 
-task runImage(type:Exec) {
-    commandLine 'docker', 'run', '-i', 'latest'
-}
+//task runImage(type:Exec) {
+//    commandLine 'docker', 'run', '-i', 'latest'
+//}
 
 
 build.finalizedBy(buildImage)
-build.finalizedBy(runImage)
+//build.finalizedBy(runImage)
