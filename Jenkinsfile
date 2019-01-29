@@ -18,6 +18,7 @@ node('docker') {
     }
 
 	 stage('Gradle Build') {
+		sh './gradlew --stop'
 		 sh './gradlew build --verbose --status'
 	 }
 
