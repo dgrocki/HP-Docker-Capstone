@@ -18,7 +18,7 @@ node('docker') {
     }
 
 	 stage('Gradle Build') {
-		 sh './gradlew clean build'
+		 sh './gradlew build --verbose'
 	 }
 
 	 stage('Gradle Tests') {
