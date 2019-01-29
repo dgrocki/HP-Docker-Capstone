@@ -19,9 +19,14 @@ class toBin {
 	 boolean isBinary(String binary) {
 		//checks if there is enog=ugh bits
 		if(binary.length() % 8 != 0) {
-	//		println "You need to enter the binary number in strings of 8's"
+			println "You need to enter the binary number in strings of 8's"
 			return false;
 		}
+
+        if(!(binary.isNumber())) {
+            println "String contained letters, numbers only!"
+            return false
+        }
 
 		int bin = binary as Integer;
 
@@ -30,7 +35,7 @@ class toBin {
 			int ones = bin % 10;
 			
 			if(ones != 0 && ones != 1) {
-	//			println "String contained values besides 1's and 0's"
+				println "String contained values besides 1's and 0's"
 				return false;
 			}
 
@@ -40,41 +45,35 @@ class toBin {
 		return true;
 	}
 
-	// public static int main(String [] args) {
-	// 	boolean goodInput = false;
-	// 	boolean isBin = false;
-	// 	String input;
 
-	// 	while(!(isBin)) {
-		
-	// 		while(!(goodInput)) {
+	public static void main(String [] args) {
 
-	// 			input = System.console().readLine 'Enter a number: ';
+        while(true) {
 
-	// 			if(!(input.isInteger())) {
-	// 				println "A number please";
-	// 			} else {
-	// 			//	println "good lad"
-	// 				goodInput = true;
-	// 			}
+            def converter = new toBin()
 
-	// 		}
+            boolean goodInput = true
+            int binString
 
-	// 		if(isBinary(input)) {
-	// 			isBin = true;
-	// 		} else {
-	// 			goodInput = false;
-	// 		}
-
-	// 	}
+            print "Enter a binary string: "
+            String input = System.in.newReader().readLine()
 
 
-	// 	print "Decimal Value: "
-	// 	println binaryToInteger(input as Integer);
+            if(input == 'exit') {
+                break
+            }
 
-	// 	print "ASCII Value: "
-	// 	println binaryToInteger(input as Integer) as char
+            goodInput = converter.isBinary(input)
 
-	// 	return 0;
-	// }
+            if(goodInput) {
+                binString = input as Integer
+                println "$input as an integer: " + converter.binaryToInteger(binString)
+            }
+            
+
+
+        }
+         
+        
+    }
 }
