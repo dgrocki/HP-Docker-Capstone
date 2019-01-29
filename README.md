@@ -4,4 +4,4 @@ POST-JENKINS
 UPDATED
 HELLO
 README
-does this work
+resource test
