@@ -29,7 +29,7 @@ node('docker') {
     stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-        dir('docker/work-manager') {app = docker.build("iceberg00/hp-docker-capstone")}
+        dir('./') {app = docker.build("iceberg00/hp-docker-capstone")}
     }
 
     stage('Test image') {
