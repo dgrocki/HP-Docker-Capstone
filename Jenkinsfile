@@ -20,6 +20,7 @@ node('docker') {
 	 stage('Gradle Build') {
 		sh './gradlew --stop'
 		 sh './gradlew build --verbose --status'
+		 sh 'pwd'
 	 }
 
 	 stage('Gradle Tests') {
@@ -29,6 +30,7 @@ node('docker') {
     stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
+	sh 'pwd'
         dir('./') {app = docker.build("iceberg00/hp-docker-capstone")}
     }
 
