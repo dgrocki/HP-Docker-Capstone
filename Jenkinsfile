@@ -31,6 +31,7 @@ node('docker') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 	sh 'pwd'
+	docker{ files build/libs/binToDec-all.jar }
         app = docker.build("iceberg00/hp-docker-capstone")
     }
 
