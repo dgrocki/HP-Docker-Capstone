@@ -1,0 +1,150 @@
+\documentclass[onecolumn, draftclsnofoot,10pt, compsoc]{IEEEtran}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{setspace}
+\usepackage{cite}
+\graphicspath{{./images/}}
+
+\usepackage{geometry}
+\geometry{textheight=9.5in, textwidth=7in}
+
+% 1. Fill in these details
+\def \CapstoneTeamName{		The Cleverly Named Team}
+\def \CapstoneTeamNumber{		58}
+\def \GroupMemberOne{			Daniel Grocki}
+\def \GroupMemberTwo{			Austin Sanders}
+\def \GroupMemberThree{			Owen Loughran}
+\def \GroupMemberFour{			David Jansen}
+\def \GroupMemberFive{			Brendan Byers}
+\def \CapstoneProjectName{		Software product life cycle transformation with Docker container technology}
+\def \CapstoneSponsorCompany{	HP}
+\def \CapstoneSponsorPerson{		Bryan Crampton}
+
+% 2. Uncomment the appropriate line below so that the document type works
+\def \DocType{		%Problem Statement
+				%Requirements Document
+				Technology Review
+				%Design Document
+				%Progress Report
+				}
+			
+\newcommand{\NameSigPair}[1]{\par
+\makebox[2.75in][r]{#1} \hfil 	\makebox[3.25in]{\makebox[2.25in]{\hrulefill} \hfill		\makebox[.75in]{\hrulefill}}
+\par\vspace{-12pt} \textit{\tiny\noindent
+\makebox[2.75in]{} \hfil		\makebox[3.25in]{\makebox[2.25in][r]{Signature} \hfill	\makebox[.75in][r]{Date}}}}
+% 3. If the document is not to be signed, uncomment the RENEWcommand below
+\renewcommand{\NameSigPair}[1]{#1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{titlepage}
+    \pagenumbering{gobble}
+    \begin{singlespace}
+%    	\includegraphics[height=4cm]{coe_v_spot1}
+        \hfill 
+        % 4. If you have a logo, use this includegraphics command to put it on the coversheet.
+        %\includegraphics[height=4cm]{CompanyLogo}   
+        \par\vspace{.2in}
+        \centering
+        \scshape{
+            \huge CS Capstone \DocType \par
+            {\large\today}\par
+            \vspace{.5in}
+            \textbf{\Huge\CapstoneProjectName}\par
+            \vfill
+            {\large Prepared for}\par
+            \Huge \CapstoneSponsorCompany\par
+            \vspace{5pt}
+            {\Large\NameSigPair{\CapstoneSponsorPerson}\par}
+            {\large Prepared by }\par
+            Group\CapstoneTeamNumber\par
+            % 5. comment out the line below this one if you do not wish to name your team
+            %\CapstoneTeamName\par 
+            \vspace{5pt}
+            {\Large
+                \NameSigPair{\GroupMemberOne}\par
+               
+            }
+            \vspace{20pt}
+        }
+        \begin{abstract}
+        % 6. Fill in your abstract    
+        This document will evaluate several different areas of technology that we need for our project. For each area, several technologies are compared to determine which technologies should be used in the project. For a way to orchestrate and manage containers, we will use Kuberentes because of it's wide support. Docker Hub will be used as an image hosting platform because it is an inexpensive solution. CentOS will be used as our development environment due to it's stability and similarities to Red Hat.
+
+        \end{abstract}     
+    \end{singlespace}
+\end{titlepage}
+\newpage
+\pagenumbering{arabic}
+\tableofcontents
+% 7. uncomment this (if applicable). Consider adding a page break.
+%\listoffigures
+%\listoftables
+\clearpage
+
+% 8. now you write!
+
+
+\section{Introduction}
+
+This tech review document will focus on evaluating different pieces of technology that we need for this project. Our project involves containerizing services used by HP's large scale printers. These containerized services need to be managed in some way and must have a straightforward development cycle. We will be creating this system over the course of this project. By evaluating different technologies for each necessary element of our project, we can weigh pros and cons of each to determine the best choice for the scope of our project. The different aspects of the project that will be evaluated are an option for container orchestration, image hosting, and an operating system for our development environment. For the course of this project, my role will be to help implement Kubernetes and help make sure that our container repositories and development environments are all stable.
+
+\section{Container Orchestration}
+
+One piece of technology that we will need is something that will allow for container management. Our project will require the containers that we create to be managed and maintained. This technology should allow us to specify the amount of resources that each group of containers is allowed to use. The system should allow for load balancing of resources to make sure that no cluster of containers is using too much CPU, RAM, or any other resource that is needed. Ideally the system that we choose also is well documented and has a large amount of online help forums. 
+
+\subsection{Docker Swarm}
+One option is to use Docker Swarm. This is a management system for Docker containers that was created by Docker themselves. This system easily integrates with Docker containers allowing for setup to be rather easy compared to other options. However, this is not as widely used as other options, and we may run into problems that will be hard to research and find good solutions for. Docker Swarm also allows for managing groups of containers via swarms.\cite{d_swarm} It has lost quite a bit of traction due to the popularity of Kubernetes. Despite this, it is still a good solution that would be able to implement all of the necessary requirements. \cite{kub}
+
+\subsection{Kubernetes}
+Another option is to use Kubernetes. This open source software allows for straightforward container management. It is the most used solution and is very well documented. It is quite easy to find additional information about problems and solutions. While it doesn't integrate natively with Docker like Swarm does, Docker containers are commonly used with Kubernetes. The setup, while possibly longer than Docker Swarm, should still be straightforward. Also, some teams at HP already use Docker with Kubernetes which means we would have internal support as well. One downside is that Kubernetes suffers from a steep learning curve. It is challenging to set up and requires training and practice to be proficient with it.\cite{kub} Kubernetes also has pods that allow for a specific amounts of resources to be specified.\cite{kub2}
+
+\subsection{Nomad}
+A third option would be to use Nomad. This option is a very light version of a container management system. It is designed to have a much simpler architecture than Kubernetes but still provide many of the same services. It is operationally simple and widely available making it a good alternative to Kubernetes. Despite it being simpler than Kubernetes, it still can support large numbers of containers. According to an article examining Kubernetes alternatives by Twain Taylor, “Nomad supports multi-datacenter and multi-region configurations and has been tested on clusters up to 5,000 nodes”.\cite{kub} This shows that Nomad can support as much as Kubernetes can. However, the fact that Nomad is so simple means that it won't have as many features built in. It may take more work to get everything we want working on it. It would likely take much more set up to get recourse management on par with the other options.
+
+\par
+After looking at these different solutions, Kubernetes appears to be the best all around solutions. The biggest reason for this is because of its wide usage. Since it is the most used approach, this means there is lots of documentation and resources to help get set up and solve problems. In addition, we will have resources from HP, since they already use it. Kubernetes will be much more difficult to get initially set up than Swarm; however, the large amount of support will make up for it. Kubernetes is a better solution than Nomad since we want more than the bare bones for a project that is primarily based around managing containers. 
+
+
+
+\section{Container Repository}
+For this project, we need a place to host the images that we have built with Jenkins. The images should be able to be pushed there by our continuous integration tool after the unit tests have passed. It should also allow for easy access to the images for us to pull them and use them to make containers. We also want a hosting cite that is relatively inexpensive as our project is mainly geared as a prototype. There are several different image hosting repositories that we could use. 
+
+\subsection{Docker Hub}
+The most standout example is Docker Hub. As it is hosted by Docker, it has very easy integration with the Docker images. It is similar to Github in the fact that you can make repositories and add collaborators to them. It also integrates very well with Gihub and Bitbucket, two of the largest code repository services. It also allows for automatic builds to be linked to these repositories. This is very important when using some sort of continuous integration tool. According to \textit{Comparing four hosted Docker Registries}, it has the downside of some performance issues with large amounts of traffic.\cite{docker_hosting} Docker Hub does have the advantage of being very inexpensive and the pricing is based on your usage. 
+
+\subsection{Quay}
+An alternative to Docker Hub is a product produced by Red Hat. Quay is a container registry that allows for secure storage and deployment of containers. It is able to automatically scan for vulnerabilities in the containers hosted on it. It allows for integration with continuous integration tools as well. Teams can be created to provide access to the repositories for everyone that needs to work on it. This product comes with many features, however it is not free as it is produced by Red Hat.\cite{quay}
+
+\subsection{Artifactory}
+
+The third option we could use is Artifactory. This is a repository manager that is geared towards larger corporations. It is an open source product, which means that it will have quite a bit of community support. Another advantage of this product is that Artifactory can be used for things other than container management. For example, HP already uses it to help manage dependencies for projects. It also allows for continuous integration with Jenkins as HP already uses it for that. However, the downside is that using it as a container management system is expensive. \cite{docker_hosting}
+
+\par
+
+Despite HP already using Artifactory, the price to host containers on it seems a little steep. It would be nice to have the easy integration with their existing system, but it doesn't seem worth, or at least not worth for the scope of this project. For similar reasoning, Quay doesn't seem like the best option either. This leaves Docker Hub. While Docker Hub doesn't have as many features as the other systems, it is relatively inexpensive and possibly free for the scope and size of our project. Docker Hub also has the advantage of easily integrating with Docker images.
+
+
+\section{Development Environment}
+For this project, we must determine what our development environment will look like. Our client has requested that we choose an operating system that all of us will work on for this project. This is important as we want everyone to have the same development environment. Having the same development environment will make the entire process much smoother as we won’t have to worry about compatibility issues. Docker is able to run on Windows and Linux, however there are differences in how it is set up. We don’t want any of these differences to affect the containers that we are running and creating. Since we plan on implementing the Linux side of things first, we can eliminate Windows as an option for a development environment. However, we may need a Windows installation towards the end of the project when we work on containerizing those services. Until then, we need to choose a good Linux distribution to use. HP currently runs Red Hat Enterprise Linux on their servers that run the services we are containerizing. It would be ideal to choose this flavor of Linux, but we are unable to install it without paying money for it. For our local machines during the project, we have to choose our own Linux distribution. We ideally want an environment that is similar to Red Hat. It would also be nice to have a well supported operating system with many users and one that is stable so we don't have to constantly update it.
+
+\subsection{Ubuntu}
+One option would be to use Ubuntu. This is one of the most common and user-friendly Linux distributions. It is very easy to install and has a lot of community support for it. This distribution of Linux is based off of the Debian system.\cite{rh_vs_deb} It is a very stable distribution and has long term support. The fact that Ubuntu has a lot of support would make it a good choice for the project. Unfortunately, it is not as similar to Red Hat which is a disadvantage compared to other choices.  
+
+\subsection{CentOS}
+Another option is to use CentOS. This distribution is based off of Red Hat. Since we are unable to get access to Red Hat Linux, trying to get as close to it as possible is a very good idea. This gives it a distinct advantage over Ubuntu, since Ubuntu is not. CentOS, like Ubuntu, is rather stable, so we do not need to worry about needing constant patches or worry about things breaking. It should work just fine right from install. Due to it's similarities to Red Hat, most of the online support involving Red Hat could also help us.\cite{rh_vs_deb} 
+
+\subsection{Fedora}
+A third option worth considering is Fedora Linux. Like CentOS, Fedora is a branch of Red Hat Linux. Fedora has updates approximately every 6 months.\cite{cent_vs_fed} It is constantly changing and has a lot of new improvements over the previous versions. These updates provide plenty of valuable features and functionality. However, the downside of numerous updates is that it could possibly break something. We could run into errors or problems while we are developing. Ideally, our development environment would be secure and unchanging. With Fedora, we run the risk of a feature causing a security vulnerability which may require us to update our environment which could cause other issues. \cite{cent_vs_fed}
+
+After looking at all of the choices, CentOS appears to be the best option. Since we plan on developing the Linux side of things first, Windows isn't the best option. We want to develop Linux containers on a Linux machine. Since HP currently uses Red Hat, CentOS seems to have a clear advantage over Ubuntu. While Ubuntu is simpler to install and has a lot more built in features, it’s architectures is not as similar to Red Hat as CentOS is. CentOS, is in the same family as Red Hat which makes it a good choice. It also beats out other flavors of Linux in that family such as Fedora. Fedora, while similar to Red Hat, is much more cutting edge. It has many more features, but it is more unstable which introduces a lot more variables to worry about. CentOS keeps things simple and close to the distribution that HP currently uses on their servers. Since all of these OS's have large amounts of community support, finding help for the one we choose shouldn't be an issue.
+
+\section{Conclusion}
+By looking into different tech options for each piece of technology we need, we can determine the best options for our project. For container orchestration, Kubernetes is the best choice. It has a large amount of online support and we also have internal support from HP. For an image hosting cite, Docker Hub is the best choice. It is the cheapest option and it has easy integration with continuous integration tools and Docker images. For our development operating system, we are choosing CentOS. It is the closest Linux distribution to Red Hat which is what the HP servers run. It is also stable and we won't have to worry about constant updates. By looking at all of these different options, we have found the best choices for our project to be the most successful. 
+
+
+
+\bibliographystyle{ieeetr}
+\bibliography{references}
+
+\end{document}

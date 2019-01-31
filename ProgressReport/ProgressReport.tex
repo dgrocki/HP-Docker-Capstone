@@ -1,0 +1,218 @@
+\documentclass[onecolumn, draftclsnofoot,10pt, compsoc]{IEEEtran}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{setspace}
+\usepackage{cite}
+\graphicspath{{./images/}}
+\usepackage{array}
+\usepackage{longtable}
+
+\usepackage{geometry}
+\geometry{textheight=9.5in, textwidth=7in}
+
+% 1. Fill in these details
+\def \CapstoneTeamName{		The Cleverly Named Team}
+\def \CapstoneTeamNumber{		58}
+\def \GroupMemberOne{			Daniel Grocki}
+\def \GroupMemberTwo{			Austin Sanders}
+\def \GroupMemberThree{			Owen Loughran}
+\def \GroupMemberFour{			David Jansen}
+\def \GroupMemberFive{			Brendan Byers}
+\def \CapstoneProjectName{		Software product life cycle transformation with Docker container technology}
+\def \CapstoneSponsorCompany{	HP}
+\def \CapstoneSponsorPerson{		Bryan Crampton}
+
+% 2. Uncomment the appropriate line below so that the document type works
+\def \DocType{		%Problem Statement
+				%Requirements Document
+				%Technology Review
+				%Design Document
+				Progress Report
+				}
+			
+\newcommand{\NameSigPair}[1]{\par
+\makebox[2.75in][r]{#1} \hfil 	\makebox[3.25in]{\makebox[2.25in]{\hrulefill} \hfill		\makebox[.75in]{\hrulefill}}
+\par\vspace{-12pt} \textit{\tiny\noindent
+\makebox[2.75in]{} \hfil		\makebox[3.25in]{\makebox[2.25in][r]{Signature} \hfill	\makebox[.75in][r]{Date}}}}
+% 3. If the document is not to be signed, uncomment the RENEWcommand below
+\renewcommand{\NameSigPair}[1]{#1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{titlepage}
+    \pagenumbering{gobble}
+    \begin{singlespace}
+%    	\includegraphics[height=4cm]{coe_v_spot1}
+        \hfill 
+        % 4. If you have a logo, use this includegraphics command to put it on the coversheet.
+        %\includegraphics[height=4cm]{CompanyLogo}   
+        \par\vspace{.2in}
+        \centering
+        \scshape{
+            \huge CS Capstone \DocType \par
+            {\large\today}\par
+            \vspace{.5in}
+            \textbf{\Huge\CapstoneProjectName}\par
+            \vfill
+            {\large Prepared for}\par
+            \Huge \CapstoneSponsorCompany\par
+            \vspace{5pt}
+            {\Large\NameSigPair{\CapstoneSponsorPerson}\par}
+            {\large Prepared by }\par
+            Group\CapstoneTeamNumber\par
+            % 5. comment out the line below this one if you do not wish to name your team
+            %\CapstoneTeamName\par 
+            \vspace{5pt}
+            {\Large
+                \NameSigPair{\GroupMemberOne}\par
+                \NameSigPair{\GroupMemberTwo}\par
+                \NameSigPair{\GroupMemberThree}\par
+                \NameSigPair{\GroupMemberFour}\par
+                \NameSigPair{\GroupMemberFive}\par
+            }
+            \vspace{20pt}
+        }
+        \begin{abstract}
+        % 6. Fill in your abstract    
+        
+        In this paper, we write a broad overview of what our project is trying to accomplish, what we have done for this project, issues we have run into, code we have written, and a quick retrospective of what we have done over the past ten weeks as a group. This paper serves as a summary of the progress we have made over the course of this term.
+
+        \end{abstract}     
+    \end{singlespace}
+\end{titlepage}
+\newpage
+\pagenumbering{arabic}
+% 7. uncomment this (if applicable). Consider adding a page break.
+%\listoffigures
+%\listoftables
+\clearpage
+
+% 8. now you write!
+
+
+%no more than a summary of large writing pieces
+%weekly reports
+
+\section{Recap project purpose and goals}
+The purpose of this project is to decrease the number of servers that are needed for the HP PageWide Web Press. These printers are the length of a house and print from 400 to 1000 feet of paper per second. There is a rack of servers that will support each of these printers. A single rack will have 2 Windows servers and anywhere from 5-15 Linux servers. Our goal for this project is to decrease the number of physical servers that are required to run the printer. This will decrease the costs due to less servers as well as reduce shipping costs. 
+
+The solution to this problem will be through containerization. We plan to containerize the services that run on the servers to decrease resource usage. Each service will be in its own container. All the containers needed for a single operation will be grouped up in a pod. Kubernetes will be used on these servers to manage these pods of containers. This will allow us to run multiple pods on a single server and decrease the amount of physical hardware needed. 
+
+Our goal for this project is to containerize the services currently running on the Linux servers. We will write code that will model the current processes running. The code that we write must model the current system that they have running the printers. We will containerize the code that we write and host the images on DockerHub. We will then use Kubernetes to group the containers together and manage their resource consumption. 
+
+The code that we write will be in Groovy to match the existing code base. We will also be using Artifactory for dependencies and Jenkins for continuous integration. It is important that we make sure that our image build process works with these technologies as HP currently uses these in their current system. It is important that our project is able to be usable by all the existing teams, including: Development, System Test, and DevOps.
+
+
+
+
+
+
+\section{Progress on Project}
+
+Professionally we have made a lot of progress on this project so far. We have developed and open and constant channel of communication with our clients where we communicate information consistently and clearly. Our client has shared, and even modified ours, git hub repositories to help us with issues we were running into. This has been extremely useful because they have us using technology that is almost exclusively used by HP, so it can be difficult to find any solutions to problems we run into. 
+
+We have also managed to set a two week SCRUM cycle with sprints. We have a Jira board set up so we can track the progress of our sprints and communicate progress to the entire team. We have set up weekly meetings with our clients to discuss architecture, demo sprints, and work on active sprints. One of our biggest accomplishments this term has been our open communication with our clients.
+
+We have an AWS (Amazon Web Server) set up and paid for by HP. We have Jenkins set up on the server. Jenkins will be our build manager for the entire project. Every time we update any git hub repository Jenkins will take it, build it, and run it against all of our unit tests. If it passes everything it will post the results and push the new image to docker hub.
+
+We are working on setting up Gradle on our server right now. Gradle will handle the packaging and unit testing of each individual branch and repository. When building each individual functionality we will have Gradle test all of our code as we work through. Gradle will also be used by Jenkins to test code when we eventually push it to master, and update the entire code base.
+
+We will also be using Artifactory to store the artifacts of our builds, and the binaries we will be using to develop our project. We have run into trouble implementing artifactory and gradle, but we are working on it right now. 
+
+We also have a github repository set up along with a Docker hub repository. The git hub will be tracking our code on individual programs we will be developing. The docker hub will be storing the images of all of our builds regardless of the github repository.
+
+\section{all problems and solutions to these problems}
+%Jenkins issues
+Initially we were unable to view the Jenkins instance running.  When Jenkins starts, it starts a web server on port 8080.  Because we run Jenkins as a Docker container, we were unable to reach the server.  To fix it, we needed to publish the containers ports to the host, making them available.  Once the port was opened on the container, we also needed to open the port on the host itself so we could access the Jenkins from outside the AWS network space.
+
+Jenkins was unable to build a docker image.  It was able to make it through each step of the build process until it needed to package built code in a container.  It was caused by Jenkins not having a build node that was able to run docker.  We run Jenkins inside a docker container, so in order to build separate containers, we needed a way for Jenkins to run docker commands.  We solved this issue by mounting the host's docker socket in the Jenkins container.  This allows Jenkins to pass commands to the host's Docker instance and run build commands.  Once the sockets were linked, Jenkins was able to build the container and push it to our Docker Hub account.
+
+%AWS issues
+
+\section{Code we have done}
+%Dockerfile
+The Dockerfile is a list of instructions that docker uses to construct a given image.  Ours is very simple and was designed as a proof of concept.  It begins by loading an Java Alpine 8 container.  This provides a foundation for our program to run on.  Next, Gradle and Groovy are installed on the container.  Finally, the repository is cloned into the container.  The Dockerfile is the recipe to build a container of our code, and can be automatically run by Jenkins.
+
+%Jenkinsfile
+The Jenkinsfile defines the build process for Jenkins.  It is stored as part of the repository, so when a change is made to the repository Jenkins senses it, clones the repository, and follows the Jenkinsfile.  The file is broken up into build stages, which contain the commands for the stage.  Our Jenkinsfile clones the repository, builds and runs tests using Gradle, then uses docker to build a container and push it to Docker Hub.  Right now our stages are rather simple, with each only having around one command.
+
+%Groovy code
+
+\section{retrospective}
+  
+\begin{center}
+\begin{longtable}{ | m{4em} | m{12em}| m{12em} | m{12em} | } 
+\hline
+Week&
+Positives&
+Deltas&
+Actions
+\\ \hline
+
+Week4&
+Had the first meeting with the project leads.  While there we took a tour of the printers we'll be working with.  We also planned an initial story to work on. We also were able to setup a repository to begin pushing code to.&
+The team should become more familiar with the Groovy programming language, and building it with Gradle.  We should also start reading up on Docker and Kubernetes&
+We need to start pushing groovy code to the repository and getting the build process figured out.
+
+\\ 
+\hline
+Week5&
+We spent this week working on the Requirements Document and ironing out the details related to that. 
+&We needed to set up time to meet with HP weekly.
+&We determined a time that works for all group members to meet. We will meet every week on Tuesday after capstone class for 2 hours for the remainder of the term.
+
+\\ 
+\hline
+Week6&
+We started looking at the architecture of the project.  
+Each service was defined and we went over what and how they communicate with each other.
+We also worked on our tech reviews individually.&
+In Jira, different stories have been listed in the backlog.  We plan on divvying them out at next week's meeting with the team leads.&
+We should look at the stories posted, and start thinking about what is required to complete them.  
+
+\\ 
+\hline
+Week7&
+We did some initial set up involving weekly planning. We assigned out the Jira stories to team members at the meeting and scored the stories&
+We will need to setup the CentOS server for virtualization, and install Docker.&
+In order to do this, we will need to get an AWS server created. Brian and Matt will take care of this
+
+
+
+\\ 
+\hline
+Week8&
+We made good progress on our current stories this week. We met up and started work on getting Jenkins and Docker set up.
+&This week we need to continue working on the stories and finish them for next week.
+&
+We need to continue working on the stories. On the CentOS server we will need to setup our build tool chain, including Jenkins and Artifactory.
+
+\\ 
+\hline
+Week9&
+This week we got a lot of progress on the actual technical side of things. We have been working on setting up a build server for CICD while we are working on developing the actual code. This started with HP providing our group with an AWS server for us to take advantage of. We were able to get Jenkins, Artifactory, Docker, Groovy, and Gradle installed.&
+Sadly the server HP got for us has very limited resources, and was not ale to run Artifactory and Jenkins at the same time. We also did not have administrative access to the AWS account so were unable to open up the ports necessary to access the web interfaces for Jenkins and Artifactory.&
+Going forward we are going to have to work on switching over to the Docker based installations of each software, so that they can be more easily managed and to get more comfortable with docker itself. HP is working on getting us another server so that we can have both Artifactory and Jenkins running simultaneously, and once the ports are open we will begin configuring the software.
+
+\\ 
+\hline
+Week10&
+This week we have been working on finalizing our project for this term. We met with HP again and set up our plan for Winter Break. 
+&We plan on working on the Groovy coding and API design over winter break.
+&We will need to choose stories to work on and make progress over break. We want to get the API connections planned out and start the creation of our Groovy code for the services we are containerizing. 
+
+\\ 
+\hline
+\end{longtable}
+\end{center}
+  
+ %*A retrospective is a reflection on the last development period. Present this retrospective as a figure with three columns (use the p{0.3\linewidth} to the tabular environment for each column):
+
+%positives column: anything good that happened
+%deltas column: changes that need to be implemented
+%actions column: specific actions that will be implemented in order to create the necessary changes
+
+%The ROWS can be organized by week, by person, by task, or by whatever makes the most sense for your project.
+
+
+\end{document}
