@@ -31,7 +31,7 @@ node('docker') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 	sh 'pwd'
-        dir('./') {app = docker.build("iceberg00/hp-docker-capstone")}
+        app = docker.build("iceberg00/hp-docker-capstone")
     }
 
     stage('Test image') {
