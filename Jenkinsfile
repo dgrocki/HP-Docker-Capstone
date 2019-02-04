@@ -31,7 +31,8 @@ node('docker') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 	sh 'pwd'	
-        app = docker.build("iceberg00/hp-docker-capstone").inside("--volume=/var/run/docker.sock:/var/run/docker.sock")
+        /* app = docker.build("iceberg00/hp-docker-capstone").inside("--volume=/var/run/docker.sock:/var/run/docker.sock") */
+		sh './dockerbuild.sh'
     }
 
     stage('Test image') {
@@ -44,10 +45,11 @@ node('docker') {
         /* Finally, we'll push the image with two tags:
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
-         * Pushing multiple tags is cheap, as all the layers are reused. */
+         * Pushing multiple tags is cheap, as all the layers are reused.
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
         }
+		*/
     }
 }
