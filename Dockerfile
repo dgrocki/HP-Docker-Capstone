@@ -6,6 +6,6 @@ CMD ["git", "checkout", "Jenkins-file"]
 CMD ["./gradlew", "build"]
 
 
-ADD /build/libs/binToDec-all.jar ./
+ADD ./build/libs/binToDec-all.jar ./
 WORKDIR /
 CMD ["java",  "-jar", "./binToDec-all.jar"]
