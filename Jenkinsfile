@@ -25,12 +25,16 @@ node('docker') {
 
 	 stage('Gradle Tests') {
 		 sh './gradlew test'
+		 stash allowEmpty: true, includes: './build/lib/*.jar', name: 'stashJar'
 	 }
+	
 
     stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
+	unstash 'stashJar'
 	sh 'pwd'	
+	sh 'ls'
         app = docker.build("iceberg00/hp-docker-capstone").inside("--volume=/var/run/docker.sock:/var/run/docker.sock")
     }
 
