@@ -19,11 +19,12 @@ node('docker') {
 	stage('Build image') {
 		/* This builds the actual image; synonymous to
 		* docker build on the command line */
-	sh (
+	output=sh (
 		script: 'ls -al',
 		returnStdout: true
-	)
-	sh './build/libs/*.jar ./'
+	).trim()
+	echo output
+	sh '../../build/libs/*.jar ./'
 	sh './dockerbuild.sh'
 	}
 
