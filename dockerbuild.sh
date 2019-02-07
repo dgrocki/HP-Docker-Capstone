@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-ls
-cp "./build/libs/binToDec-all.jar" ./
+
+cp "./HP-Docker-Capstone/build/libs/binToDec-all.jar" ./
 
 docker build -t iceberg00/hp-docker-capstone:latest -t iceberg00/hp-docker-capstone:${BUILD_NUMBER} .
 docker login -u iceberg00 -p DOCKER_CREDS_PSW
