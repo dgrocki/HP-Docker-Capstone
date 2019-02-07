@@ -20,11 +20,10 @@ node('docker') {
 		/* This builds the actual image; synonymous to
 		* docker build on the command line */
 	output=sh (
-		script: 'ls -al ./build/classes',
+		script: './dockerbuild.sh',
 		returnStdout: true
 	).trim()
 	echo output
-	sh './dockerbuild.sh'
 	}
 
 	stage('Test image') {
