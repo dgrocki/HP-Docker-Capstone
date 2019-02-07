@@ -1,4 +1,5 @@
 node('docker') {
+	def app
 	environment {
 		DOCKER_CREDS = credentials('docker-hub')
 	}
@@ -23,10 +24,16 @@ node('docker') {
 		script: './dockerbuild.sh',
 		returnStdout: true
 	).trim()
-	echo output
+	app = docker.build("iceberg00/hp-docker-capstone")
 	}
 
 	stage('Test image') {
 
+	}
+	stage('Push image'){
+		docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
+				app.push("${env.BUILD_NUMBER}")
+				app.push("latest")
+		}
 	}
 }
