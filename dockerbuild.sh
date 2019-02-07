@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+./gradlew build
 cp "./build/libs/*.jar" ./
 
 docker build -t iceberg00/hp-docker-capstone:latest -t iceberg00/hp-docker-capstone:${BUILD_NUMBER} .
