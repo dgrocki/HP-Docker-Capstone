@@ -20,10 +20,12 @@ node('docker') {
 		/* This builds the actual image; synonymous to
 		* docker build on the command line */
 	output=sh (
-		script: 'ls -al',
+		script: 'ls -al ./build',
 		returnStdout: true
 	).trim()
 	echo output
+	output =sh (script: 'tree ./',
+		returnStdout: true)
 	sh '../../build/libs/*.jar ./'
 	sh './dockerbuild.sh'
 	}
