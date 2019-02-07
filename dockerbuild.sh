@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 ./gradlew build
 ls ./
+echo "SPACE\n"
 ls ./build
+echo "SPACE\n"
 ls ./build/libs/
+echo "SPACE\n"
 cp -r "./build/libs/*" ./
 
 docker build -t iceberg00/hp-docker-capstone:latest -t iceberg00/hp-docker-capstone:${BUILD_NUMBER} .
