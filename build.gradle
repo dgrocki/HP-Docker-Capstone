@@ -11,6 +11,9 @@ plugins {
     id 'groovy'
 }
 
+apply plugin: 'jacoco'
+
+
 dependencies {
     // Use the latest Groovy version for building this library
     compile 'org.codehaus.groovy:groovy-all:2.4.15'
