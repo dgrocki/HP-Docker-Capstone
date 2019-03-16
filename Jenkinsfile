@@ -15,6 +15,7 @@ node('docker') {
 
 	stage('Gradle Tests') {
 	sh './gradlew test'
+	jacoco classPattern: '**/build/classes', execPattern: '**/build/jacoco/**.exec', inclusionPattern: '**/*.class', sourceInclusionPattern: '**/*.groovy', sourcePattern: '**/src/main/groovy'
 	}	
 
 	stage('Build image') {
