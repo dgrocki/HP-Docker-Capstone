@@ -1,6 +1,6 @@
 package com.hp.pwp.capstone
 
-class toBin {
+class Example {
 
 	 int binaryToInteger(int binString) {
 		int asciiValue=0;
@@ -23,11 +23,6 @@ class toBin {
 			return false;
 		}
 
-        if(!(binary.isNumber())) {
-            println "String contained letters, numbers only!"
-            return false
-        }
-
 		int bin = binary as Integer;
 
 		//checks to see if all items in string are 1's and 0's
@@ -45,35 +40,41 @@ class toBin {
 		return true;
 	}
 
+	// public static int main(String [] args) {
+	// 	boolean goodInput = false;
+	// 	boolean isBin = false;
+	// 	String input;
 
-	public static void main(String [] args) {
+	// 	while(!(isBin)) {
+		
+	// 		while(!(goodInput)) {
 
-        while(true) {
+	// 			input = System.console().readLine 'Enter a number: ';
 
-            def converter = new toBin()
+	// 			if(!(input.isInteger())) {
+	// 				println "A number please";
+	// 			} else {
+	// 			//	println "good lad"
+	// 				goodInput = true;
+	// 			}
 
-            boolean goodInput = true
-            int binString
+	// 		}
 
-            print "Enter a binary string: "
-            String input = System.in.newReader().readLine()
+	// 		if(isBinary(input)) {
+	// 			isBin = true;
+	// 		} else {
+	// 			goodInput = false;
+	// 		}
 
-
-            if(input == 'exit') {
-                break
-            }
-
-            goodInput = converter.isBinary(input)
-
-            if(goodInput) {
-                binString = input as Integer
-                println "$input as an integer: " + converter.binaryToInteger(binString)
-            }
-            
+	// 	}
 
 
-        }
-         
-        
-    }
+	// 	print "Decimal Value: "
+	// 	println binaryToInteger(input as Integer);
+
+	// 	print "ASCII Value: "
+	// 	println binaryToInteger(input as Integer) as char
+
+	// 	return 0;
+	// }
 }
