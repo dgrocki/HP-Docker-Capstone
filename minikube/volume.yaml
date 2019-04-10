@@ -1,0 +1,26 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: shared-memory1 
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/hosthome/grockidile/capstone/HP-Docker-Capstone-WorkerA/PDF"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+   name: shared-memory1 
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi

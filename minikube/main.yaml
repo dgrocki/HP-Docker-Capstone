@@ -1,0 +1,164 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beanstalk-deployment
+  namespace: default
+  labels:
+    app: beanstalk
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: beanstalk
+  template:
+    metadata:
+      labels:
+        app: beanstalk
+    spec:
+      containers:
+      - name: beanstalk
+        image: schickling/beanstalkd:latest
+        ports:
+        - containerPort: 11300
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: beanstalk 
+spec:
+  selector:
+    app: beanstalk
+  ports:
+  - protocol: TCP
+    targetPort: 11300
+    port: 11300 
+  type: LoadBalancer
+---
+#WorkerB
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: workerb-deployment
+  labels:
+    app: workerb 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: workerb 
+  template:
+    metadata:
+      labels:
+        app: workerb
+    spec:
+      containers:
+      - name: workerb
+        image: dgrocki/workerb:latest
+        volumeMounts:
+        - name: wb-vol
+          mountPath: "/mnt"
+      volumes:
+      - name: wb-vol 
+        persistentVolumeClaim:
+          claimName: shared-memory1
+---
+#WorkerA
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: workera-deployment
+  labels:
+    app: workera
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: workera
+  template:
+    metadata:
+      labels:
+        app: workera
+    spec:
+      containers:
+      - name: workera
+        image: dgrocki/workera:latest
+        volumeMounts:
+        - name: wa-vol
+          mountPath: "/mnt"
+      volumes:
+      - name: wa-vol 
+        persistentVolumeClaim:
+          claimName: shared-memory1
+---
+#WorkManager
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: workmanager-deployment
+  labels:
+    app: workmanager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: workmanager
+  template:
+    metadata:
+      labels:
+        app: workmanager
+    spec:
+      containers:
+      - name: workmanager
+        image: dgrocki/workmanager:latest
+        volumeMounts:
+        - name: wm-vol
+          mountPath: "/mnt"
+      volumes:
+      - name: wm-vol 
+        persistentVolumeClaim:
+          claimName: shared-memory1
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: workmanager 
+spec:
+  selector:
+    app: workmanager 
+  ports:
+  - protocol: UDP 
+    targetPort: 8080
+    port: 8080
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-input
+  labels:
+    app: py 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: py 
+  template:
+    metadata:
+      labels:
+        app: py 
+    spec:
+      containers:
+      - name: py
+        image: dgrocki/beanstalk-python:latest
+        volumeMounts:
+        - name: hostvol
+          mountPath: /mnt
+        command:
+        - /bin/sh
+        - "-c"
+        - "sleep 60m"
+      volumes:
+      - name: hostvol
+        hostPath:
+          path: /home/grockidile/capstone/HP-Docker-Capstone-WorkerA/PDF
+
