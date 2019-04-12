@@ -63,33 +63,33 @@ spec:
           claimName: shared-memory1
 ---
 #WorkerA
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: workera-deployment
-  labels:
-    app: workera
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: workera
-  template:
-    metadata:
-      labels:
-        app: workera
-    spec:
-      containers:
-      - name: workera
-        image: dgrocki/workera:latest
-        volumeMounts:
-        - name: wa-vol
-          mountPath: "/mnt"
-      volumes:
-      - name: wa-vol 
-        persistentVolumeClaim:
-          claimName: shared-memory1
----
+##apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: workera-deployment
+#  labels:
+#    app: workera
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      app: workera
+#  template:
+#    metadata:
+#      labels:
+#        app: workera
+#    spec:
+#      containers:
+#      - name: workera
+#        image: dgrocki/workera:latest
+#        volumeMounts:
+#        - name: wa-vol
+#          mountPath: "/mnt"
+#      volumes:
+#      - name: wa-vol 
+#        persistentVolumeClaim:
+#          claimName: shared-memory1
+#---
 #WorkManager
 apiVersion: apps/v1
 kind: Deployment
@@ -110,6 +110,13 @@ spec:
       containers:
       - name: workmanager
         image: dgrocki/workmanager:latest
+        ports:
+        - containerPort: 8080 
+        volumeMounts:
+        - name: wm-vol
+          mountPath: "/mnt"
+      - name: workera
+        image: dgrocki/workera:latest
         volumeMounts:
         - name: wm-vol
           mountPath: "/mnt"
@@ -126,8 +133,7 @@ spec:
   selector:
     app: workmanager 
   ports:
-  - protocol: UDP 
-    targetPort: 8080
+  - protocol: TCP
     port: 8080
   type: LoadBalancer
 ---
