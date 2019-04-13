@@ -27,12 +27,12 @@ sudo chmod +x /usr/local/bin/docker-compose
 #* Install virtualbox
 cd /etc/yum.repos.d/
 sudo wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo
-sudo yum update
+sudo yum update -y
 sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 sudo yum install -y binutils gcc make patch libgomp glibc-headers glibc-devel kernel-headers kernel-devel dkms
 sudo yum install -y VirtualBox-6.0
-sudo service vboxdrv set
-sudo usermod -a -G vboxusers user_name
+sudo /usr/lib/virtualbox/vboxdrv.sh setup
+sudo usermod -a -G vboxusers $USER
 
 
 
