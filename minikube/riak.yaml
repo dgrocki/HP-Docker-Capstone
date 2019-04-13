@@ -1,0 +1,115 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    com.basho.riak.cluster.name: riak-kv
+    kompose.cmd: kompose convert
+    kompose.version: 1.7.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: coordinator
+  name: coordinator
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: coordinator
+    spec:
+      containers:
+      - env:
+        - name: CLUSTER_NAME
+          value: riakkv
+        image: basho/riak-kv
+        name: coordinator
+        ports:
+        - containerPort: 8087
+        - containerPort: 8098
+        resources: {}
+      restartPolicy: Always
+status: {}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    com.basho.riak.cluster.name: riak-kv
+    kompose.cmd: kompose convert
+    kompose.version: 1.7.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: member
+  name: member
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: member
+    spec:
+      containers:
+      - env:
+        - name: CLUSTER_NAME
+          value: riakkv
+        - name: COORDINATOR_NODE
+          value: coordinator
+        image: basho/riak-kv
+        name: member
+        ports:
+        - containerPort: 8087
+        - containerPort: 8098
+        resources: {}
+      restartPolicy: Always
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    com.basho.riak.cluster.name: riak-kv
+    kompose.cmd: kompose convert
+    kompose.version: 1.7.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: coordinator
+  name: coordinator
+spec:
+  ports:
+  - name: "8087"
+    port: 8087
+    targetPort: 8087
+  - name: "8098"
+    port: 8098
+    targetPort: 8098
+  selector:
+    io.kompose.service: coordinator
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    com.basho.riak.cluster.name: riak-kv
+    kompose.cmd: kompose convert
+    kompose.version: 1.7.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: member
+  name: member
+spec:
+  ports:
+  - name: "8087"
+    port: 8087
+    targetPort: 8087
+  - name: "8098"
+    port: 8098
+    targetPort: 8098
+  selector:
+    io.kompose.service: member
+status:
+  loadBalancer: {}

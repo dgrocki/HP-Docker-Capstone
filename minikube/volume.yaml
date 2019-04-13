@@ -11,7 +11,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/hosthome/grockidile/capstone/HP-Docker-Capstone-WorkerA/PDF"
+    path: "/hosthome/pdf_io"
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1

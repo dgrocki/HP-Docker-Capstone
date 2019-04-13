@@ -1,3 +1,4 @@
+#Beanstalk deployment 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -21,6 +22,7 @@ spec:
         ports:
         - containerPort: 11300
 ---
+#Beanstalk Service
 kind: Service
 apiVersion: v1
 metadata:
@@ -34,6 +36,11 @@ spec:
     port: 11300 
   type: LoadBalancer
 ---
+
+
+
+
+
 #WorkerB
 apiVersion: apps/v1
 kind: Deployment
@@ -42,7 +49,7 @@ metadata:
   labels:
     app: workerb 
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: workerb 
@@ -61,36 +68,10 @@ spec:
       - name: wb-vol 
         persistentVolumeClaim:
           claimName: shared-memory1
+
 ---
-#WorkerA
-##apiVersion: apps/v1
-#kind: Deployment
-#metadata:
-#  name: workera-deployment
-#  labels:
-#    app: workera
-#spec:
-#  replicas: 1
-#  selector:
-#    matchLabels:
-#      app: workera
-#  template:
-#    metadata:
-#      labels:
-#        app: workera
-#    spec:
-#      containers:
-#      - name: workera
-#        image: dgrocki/workera:latest
-#        volumeMounts:
-#        - name: wa-vol
-#          mountPath: "/mnt"
-#      volumes:
-#      - name: wa-vol 
-#        persistentVolumeClaim:
-#          claimName: shared-memory1
-#---
-#WorkManager
+#WorkManager and WorkerA
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -98,7 +79,7 @@ metadata:
   labels:
     app: workmanager
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: workmanager
@@ -124,18 +105,18 @@ spec:
       - name: wm-vol 
         persistentVolumeClaim:
           claimName: shared-memory1
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: workmanager 
-spec:
-  selector:
-    app: workmanager 
-  ports:
-  - protocol: TCP
-    port: 8080
-  type: LoadBalancer
+#---
+#kind: Service
+#apiVersion: v1
+#metadata:
+#  name: workmanager 
+#spec:
+#  selector:
+#    app: workmanager 
+#  ports:
+#  - protocol: TCP
+#    port: 8080
+#  type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -156,15 +137,8 @@ spec:
       containers:
       - name: py
         image: dgrocki/beanstalk-python:latest
-        volumeMounts:
-        - name: hostvol
-          mountPath: /mnt
         command:
         - /bin/sh
         - "-c"
         - "sleep 60m"
-      volumes:
-      - name: hostvol
-        hostPath:
-          path: /home/grockidile/capstone/HP-Docker-Capstone-WorkerA/PDF
 
