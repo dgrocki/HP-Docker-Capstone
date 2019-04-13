@@ -4,8 +4,8 @@
 #* wget
 #* git
 #* kernel-devel
+#* kernel-devel-3.10.0-957.el17.x86_64
 #* kernel-headers
-#* kernel-devel.x86_64 0:3.10.0-957.eludo 
 
 #Order of operations:
 #* install docker
