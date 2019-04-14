@@ -4,7 +4,7 @@
 #* wget
 #* git
 #* kernel-devel
-#* kernel-devel-3.10.0-957.e17.x86_64
+#* kernel-devel-3.10.0-957.el7.x86_64
 #* kernel-headers
 
 #Order of operations:
