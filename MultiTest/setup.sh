@@ -4,28 +4,18 @@
 #* wget
 #* git
 #* kernel-devel
-#* kernel-devel-3.10.0-957.el17.x86_64
+#* kernel-devel-3.10.0-957.e17.x86_64
 #* kernel-headers
 
 #Order of operations:
+#* install virtualbox
 #* install docker
 #* install docker-compose
-#* install virtualbox
 #* install kubectl
 #* install minikube
 #* install gradlew
 #* install java
 #* reboot
-
-#* Install and Enable docker:
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-sudo yum install -y docker-ce docker-ce-cli containerd.io
-sudo systemctl enable --now docker
-
-#* Install docker-compose:
-sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
 
 #* Install virtualbox
 cd /etc/yum.repos.d/
@@ -36,6 +26,17 @@ sudo yum install -y binutils gcc make patch libgomp glibc-headers glibc-devel ke
 sudo yum install -y VirtualBox-6.0
 sudo /usr/lib/virtualbox/vboxdrv.sh setup
 sudo usermod -a -G vboxusers $USER
+cd ~
+
+#* Install and Enable docker:
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum install -y docker-ce docker-ce-cli containerd.io
+sudo systemctl enable --now docker
+
+#* Install docker-compose:
+sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 
 #* Install kubectl
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
