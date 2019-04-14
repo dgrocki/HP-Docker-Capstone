@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    com.basho.riak.cluster.name: riak-kv
+    kompose.cmd: kompose convert
+    kompose.version: 1.7.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: member
+  name: member
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: member
+    spec:
+      containers:
+      - env:
+        - name: CLUSTER_NAME
+          value: riakkv
+        - name: COORDINATOR_NODE
+          value: coordinator
+        image: basho/riak-kv
+        name: member
+        ports:
+        - containerPort: 8087
+        - containerPort: 8098
+        resources: {}
+      restartPolicy: Always
+status: {}
