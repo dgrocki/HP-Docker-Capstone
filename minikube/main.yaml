@@ -39,43 +39,40 @@ spec:
 
 
 
-
-
 #WorkerB
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: workerb-deployment
-  labels:
-    app: workerb 
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: workerb 
-  template:
-    metadata:
-      labels:
-        app: workerb
-    spec:
-      containers:
-      - name: workerb
-        image: dgrocki/workerb:latest
-        volumeMounts:
-        - name: wb-vol
-          mountPath: "/mnt"
-      volumes:
-      - name: wb-vol 
-        persistentVolumeClaim:
-          claimName: shared-memory1
-
----
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: workerb-deployment
+#  labels:
+#    app: workerb 
+#spec:
+#  replicas: 2
+#  selector:
+#    matchLabels:
+#      app: workerb 
+#  template:
+#    metadata:
+#      labels:
+#        app: workerb
+#    spec:
+#      containers:
+#      - name: workerb
+#        image: dgrocki/workerb:latest
+#        volumeMounts:
+#        - name: wb-vol
+#          mountPath: "/mnt"
+#      volumes:
+#      - name: wb-vol 
+#        persistentVolumeClaim:
+#          claimName: shared-memory1
+#
+#---
 #WorkManager and WorkerA
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: workmanager-deployment
+  name: workers
   labels:
     app: workmanager
 spec:
@@ -91,16 +88,59 @@ spec:
       containers:
       - name: workmanager
         image: dgrocki/workmanager:latest
-        ports:
-        - containerPort: 8080 
         volumeMounts:
         - name: wm-vol
           mountPath: "/mnt"
-      - name: workera
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+
+
+      - name: workera1
         image: dgrocki/workera:latest
         volumeMounts:
         - name: wm-vol
           mountPath: "/mnt"
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+      - name: workera2
+        image: dgrocki/workera:latest
+        volumeMounts:
+        - name: wm-vol
+          mountPath: "/mnt"
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+
+
+
+      - name: workerb1
+        image: dgrocki/workerb:latest
+        volumeMounts:
+        - name: wm-vol
+          mountPath: "/mnt"
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+      - name: workerb2
+        image: dgrocki/workerb:latest
+        volumeMounts:
+        - name: wm-vol
+          mountPath: "/mnt"
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
       volumes:
       - name: wm-vol 
         persistentVolumeClaim:
@@ -136,7 +176,7 @@ spec:
     spec:
       containers:
       - name: py
-        image: dgrocki/beanstalk-python:latest
+        image: dgrocki/beanstalk-input:latest
         command:
         - /bin/sh
         - "-c"
