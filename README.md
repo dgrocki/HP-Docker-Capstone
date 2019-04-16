@@ -43,15 +43,12 @@ Next add read and write permissions to it with chmod:
 
 You don't need to use the 777 permission set, we just aren't taking any chances in these instructions.
 Just make sure it has read and write privileges for your user (: ) 
-Next, copy the `TestPDF.pdf` from this directory to the `/home/pdf_io directory`.
+Next, copy the `TestPDF.pdf` from this directory to the `/home/pdf_io` directory.
 
 
 ### Starting the deployments
-Run the following commands or script to create the kubernetes pods. 
+Run the following commands to create the kubernetes pods. 
 If this is the first time running these commands, it may take upwards of 5 minutes for them to finish. 
-
-Script
---insert run script-- 
 
 Manually: this should be done from the minikube directory
 * `kubectl apply -f riak.yaml`
@@ -77,19 +74,16 @@ In order to submit a job, we must first enter the python pod.
 
 Run kubectl get pods to get all of the pods that we have created. There should be one pod called "python-input-########" Copy this entire pod name.
 
-Command:
 `kubectl get pods`
 
 Next run the following command to exec into the container.
 
-Command:
 `kubectl exec -it nameofpodyoucopied -- /bin/bash`
 
 You should now have a prompt in the pod. Type `ls` to verify that you can see a script named `beanstalk_test.py`.
 
 Run `beanstalk_test.py` with python2.7
 
-Command:
 `python2.7 beanstalk_test.py`
 
 A job has now been submitted. Given 20-30 seconds and there should be a pdf titled `Out_workerspodname.pdf` in your `/home/pdf_io` directory.
