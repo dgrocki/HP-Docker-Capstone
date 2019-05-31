@@ -1,15 +1,15 @@
-\contentsline {section}{\numberline {1}Introduction}{2}
-\contentsline {section}{\numberline {2}Container Orchestration}{2}
-\contentsline {subsection}{\numberline {2.1}Docker Swarm}{2}
-\contentsline {subsection}{\numberline {2.2}Kubernetes}{2}
-\contentsline {subsection}{\numberline {2.3}Nomad}{2}
-\contentsline {section}{\numberline {3}Container Repository}{3}
-\contentsline {subsection}{\numberline {3.1}Docker Hub}{3}
-\contentsline {subsection}{\numberline {3.2}Quay}{3}
-\contentsline {subsection}{\numberline {3.3}Artifactory}{3}
-\contentsline {section}{\numberline {4}Development Environment}{4}
-\contentsline {subsection}{\numberline {4.1}Ubuntu}{4}
-\contentsline {subsection}{\numberline {4.2}CentOS}{4}
-\contentsline {subsection}{\numberline {4.3}Fedora}{4}
-\contentsline {section}{\numberline {5}Conclusion}{5}
-\contentsline {section}{References}{5}
+\contentsline {section}{\numberline {1}Introduction}{2}% 
+\contentsline {section}{\numberline {2}Container Orchestration}{2}% 
+\contentsline {subsection}{\numberline {2.1}Docker Swarm}{2}% 
+\contentsline {subsection}{\numberline {2.2}Kubernetes}{2}% 
+\contentsline {subsection}{\numberline {2.3}Nomad}{2}% 
+\contentsline {section}{\numberline {3}Container Repository}{3}% 
+\contentsline {subsection}{\numberline {3.1}Docker Hub}{3}% 
+\contentsline {subsection}{\numberline {3.2}Quay}{3}% 
+\contentsline {subsection}{\numberline {3.3}Artifactory}{3}% 
+\contentsline {section}{\numberline {4}Development Environment}{4}% 
+\contentsline {subsection}{\numberline {4.1}Ubuntu}{4}% 
+\contentsline {subsection}{\numberline {4.2}CentOS}{4}% 
+\contentsline {subsection}{\numberline {4.3}Fedora}{4}% 
+\contentsline {section}{\numberline {5}Conclusion}{5}% 
+\contentsline {section}{References}{5}% 
